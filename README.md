@@ -3,7 +3,6 @@
 - 🌱 Currently diving deep into Salesforce Administration and Development.  
 - 💞️ I’m eager to collaborate on Salesforce projects and innovative tech ideas.  
 - 📫 Reach me at [sravanti.ch28@gmail.com]
-- 😄 Pronouns: She/Her  
 - ⚡ Fun fact: I believe every challenge is just a puzzle waiting to be solved!  
 
 # Salesforce DX Project: Next Steps
