@@ -1,3 +1,11 @@
+- 👋 Hi, I’m Sravanthi Cheerladinne
+- 👀 I’m passionate about exploring technology and solving real-world problems.  
+- 🌱 Currently diving deep into Salesforce Administration and Development.  
+- 💞️ I’m eager to collaborate on Salesforce projects and innovative tech ideas.  
+- 📫 Reach me at [sravanti.ch28@gmail.com]
+- 😄 Pronouns: She/Her  
+- ⚡ Fun fact: I believe every challenge is just a puzzle waiting to be solved!  
+
 # Salesforce DX Project: Next Steps
 
 Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
