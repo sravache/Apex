@@ -12,31 +12,33 @@ public with sharing class AccountTriggerHandler extends TriggerHandler {
         this.oldAccountMap = (Map<Id, Account>) Trigger.oldMap;
     }
 
-    /* public override void beforeInsert() {
-        
-    } */
+    public override void beforeInsert() {
+       
+    } 
 
-    /* public override void afterinsert() {
-        
-    } */
+    public override void afterinsert() {
+       AccountEmailHelper.contactCreation(newAccounts); 
+       AccountEmailHelper.updateContactAddress(newAccountMap, oldAccountMap);
+    } 
 
-    /* public override void beforeUpdate() {
-        
-    } */
+    public override void beforeUpdate() {
+      AccountEmailHelper.accDescriptionUpdate(newAccounts, oldAccountMap);  
+    } 
 
-    public override void afterUpdate() {
+   /* public override void afterUpdate() {
         AccountEmailHelper.sendNewTierAccountEmails(newAccounts, oldAccountMap);
-    }
-
-    /* public override void beforeDelete() {
-        
+        AccountEmailHelper.updateContactAddress(newAccountMap, oldAccountMap);
     } */
+
+    public override void beforeDelete() {
+        AccountEmailHelper.preventActiveAccountDeletion(oldAccounts);
+    } 
 
     /* public override void afterDelete() {
         
     } */
 
-    /* public override void afterUndelete() {
-        
-    } */
+    public override void afterUndelete() {
+      
+    } 
 }
