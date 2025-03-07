@@ -8,14 +8,18 @@ public with sharing class EmployeeHelperClass {
             if(oldEmployeesMap == null && emp.Employer__c != null){
                 employerIds.add(emp.Employer__c);
             }
-            else if(oldEmployeesMap != null && emp.Employer__c != null &&( (emp.Employer__c != oldEmployeesMap.get(emp.Id).Employer__c) || (emp.Salary__c != oldEmployeesMap.get(emp.Id).Salary__c))){
+            else if(oldEmployeesMap != null && emp.Employer__c != null &&( (emp.Employer__c != oldEmployeesMap.get(emp.Id).Employer__c) 
+            || (emp.Salary__c != oldEmployeesMap.get(emp.Id).Salary__c))){
                 employerIds.add(emp.Employer__c);
                 employerIds.add(oldEmployeesMap.get(emp.Id).Employer__c);
             }
         }
 
-        Map<Id, Decimal> employerToMaxSalaryMap = new Map<Id, Decimal>(); 
-        Map<Id, Decimal> employerToMinSalaryMap = new Map<Id, Decimal>();
+        Map<Id, Decimal> employerToMaxSalaryMap = new Map<Id, Decimal>(); // AmazonId => 1000K
+        Map<Id, Decimal> employerToMinSalaryMap = new Map<Id, Decimal>(); // AmazonId => 10K
+      //  Map<Id, List<Decimal>> employerSalaryMap = new Map<Id, List<Decimal>>(); //AmazonId => {10K, 1000K}
+
+
 
         List<Employer__c> employersToBeUpdated = new List<Employer__c>();
         //Aggregate result to get the Min, Max Salary for each employer
@@ -25,6 +29,14 @@ public with sharing class EmployeeHelperClass {
                                         WHERE Employer__c IN :employerIds
                                         GROUP BY Employer__c]){
                 employerToMaxSalaryMap.put((Id)empAgg.get('employerId'), (Decimal)empAgg.get('maxSal'));
+
+                
+                  //  employerSalaryMap.put((Id) empAgg.get('employerId'), new List<Decimal>{(Decimal)empAgg.get('maxSal'), 
+                                                                                            (Decimal)empAgg.get('minSal')});
+
+                                                                           // AmazonId => {1000K, 10K}
+                
+
                 employerToMinSalaryMap.put((Id)empAgg.get('employerId'), (Decimal)empAgg.get('minSal'));                           
             }
 
@@ -32,6 +44,9 @@ public with sharing class EmployeeHelperClass {
                 Employer__c employer = new Employer__c (Id = employerId, 
                                                     Highest_Salary__c = employerToMaxSalaryMap.get(employerId),
                                                     Least_Salary__c = employerToMinSalaryMap.get(employerId));
+
+                                                  //  Highest_Salary__c = emplopyerSalaryMap.get(employerId)[0];
+                                                  //  Least_Salary__c = employerSalaryMap.get(employerId)[1];
                                                     
                 employersToBeUpdated.add(employer);                                                                       
             }
